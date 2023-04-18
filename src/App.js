@@ -2,25 +2,27 @@ import './App.css';
 // import { Planet } from './Planet';
 // import { User } from './User';
 import { useState } from 'react';
+import { Task } from './Task';
 
+/*
 function App() {
-  // const age = 15;
-  // const isGreen = true;
-  // const names = ['Pedro', 'Jake', 'Jessica', 'Mike', 'Dustin', 'Lukas'];
-  // const users = [
-  //   { id: 1, name: 'Pedro', age: 21 },
-  //   { id: 2, name: 'Jake', age: 25 },
-  //   { id: 3, name: 'Jessica', age: 45 },
-  //   { id: 4, name: 'Herbert', age: 35 },
-  // ];
-  // const planets = [
-  //   { name: 'Mars', isGasPlanet: false },
-  //   { name: 'Earth', isGasPlanet: false },
-  //   { name: 'Jupiter', isGasPlanet: true },
-  //   { name: 'Venus', isGasPlanet: false },
-  //   { name: 'Neptune', isGasPlanet: true },
-  //   { name: 'Uranus', isGasPlanet: true },
-  // ];
+  const age = 15;
+  const isGreen = true;
+  const names = ['Pedro', 'Jake', 'Jessica', 'Mike', 'Dustin', 'Lukas'];
+  const users = [
+    { id: 1, name: 'Pedro', age: 21 },
+    { id: 2, name: 'Jake', age: 25 },
+    { id: 3, name: 'Jessica', age: 45 },
+    { id: 4, name: 'Herbert', age: 35 },
+  ];
+  const planets = [
+    { name: 'Mars', isGasPlanet: false },
+    { name: 'Earth', isGasPlanet: false },
+    { name: 'Jupiter', isGasPlanet: true },
+    { name: 'Venus', isGasPlanet: false },
+    { name: 'Neptune', isGasPlanet: true },
+    { name: 'Uranus', isGasPlanet: true },
+  ];
 
   /* return (
     /*
@@ -50,28 +52,29 @@ function App() {
   );
   */
 
-  // const [age, setAge] = useState(1);
-  // const increaseAge = () => {
-  //   setAge(age - 1);
-  // };
+// const [age, setAge] = useState(1);
+// const increaseAge = () => {
+//   setAge(age - 1);
+// };
 
-  // const [inputValue, setInputValue] = useState('');
-  // const handleInputChange = (e) => {
-  //   setInputValue(e.target.value);
-  // };
+// const [inputValue, setInputValue] = useState('');
+// const handleInputChange = (e) => {
+//   setInputValue(e.target.value);
+// };
 
-  // const [showText, setShowText] = useState(false);
+// const [showText, setShowText] = useState(false);
 
-  // const [textColor, setTextColor] = useState('black');
+// const [textColor, setTextColor] = useState('black');
 
-  const [count, setCount] = useState(0);
+// const [count, setCount] = useState(0);
 
+/*
   return (
     <div className='App'>
-      {/* {age} <button onClick={increaseAge}>Increase Age</button> */}
+      {/* {age} <button onClick={increaseAge}>Increase Age</button> * /}
 
       {/* <input type='text' onChange={handleInputChange} />
-      {inputValue} */}
+      {inputValue} * /}
 
       {/* <button
         onClick={() => {
@@ -80,7 +83,7 @@ function App() {
       >
         Show/Hide
       </button>
-      {showText && <h1>HI MY NAME IS PEDRO</h1>} */}
+      {showText && <h1>HI MY NAME IS PEDRO</h1>} * /}
 
       {/* <button
         type='text'
@@ -90,13 +93,60 @@ function App() {
       >
         Show/Hide
       </button>
-      <h1 style={{ color: textColor }}>HI MY NAME IS PEDRO</h1> */}
+      <h1 style={{ color: textColor }}>HI MY NAME IS PEDRO</h1> * /}
 
-      <button onClick={() => setCount(count + 1)}>Increase</button>
+      {/* <button onClick={() => setCount(count + 1)}>Increase</button>
       <button onClick={() => setCount(count - 1)}>Decrease</button>
       <button onClick={() => setCount(0)}>Set to Zero</button>
 
-      {count}
+      {count} * /}
+    </div>
+  );
+}
+*/
+
+/* Todo App */
+function App() {
+  const [todoList, setTodoList] = useState([]);
+  const [newTask, setNewTask] = useState('');
+
+  const handleChange = (e) => {
+    setNewTask(e.target.value);
+  };
+
+  const addTask = () => {
+    const task = {
+      id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
+      taskName: newTask,
+    };
+    setTodoList([...todoList, task]);
+  };
+
+  const deleteTask = (id) => {
+    setTodoList(
+      todoList.filter((task) => {
+        return task.id !== id;
+      })
+    );
+  };
+
+  return (
+    <div className='App'>
+      <div className='addTask'>
+        <input onChange={handleChange} />
+        <button onClick={addTask}>Add Task</button>
+      </div>
+      <div className='list'>
+        {todoList.map((task) => {
+          return (
+            <Task
+              taskName={task.taskName}
+              id={task.id}
+              deleteTask={deleteTask}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
